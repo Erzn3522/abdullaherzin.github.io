@@ -1,238 +1,1025 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Abdullah Erzin</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdullah Erzin - Interactive Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #7c3aed;
+            --text-color: #1f2937;
+            --light-bg: #f3f4f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-color);
+        }
         
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
-          
-        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-    </head>
-    <body id="page-top">
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">
-                <span class="d-block d-lg-none">Abdullah Erzin</span>
-                <span class="d-none d-lg-block"><img class="img-fluid  rounded-circle mx-auto mb-0" src="assets/img/profile.jpg" alt="..." /></span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">Experience</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Education</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">Skills</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">Interests</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#resume">Resume</a></li>
-                </ul>
+        #typed-text {
+                        display: inline-block; /* Ensures dimensions apply */
+                        max-width: 100%; /* Ensures the text doesn't overflow the parent element */
+                        height: 1.5em; /* Fixed height to prevent vertical shifts */
+                        overflow: hidden; /* Prevents any text overflow */
+                        text-align: center; /* Align text in the center */
+                        white-space: nowrap; /* Prevents wrapping to new lines */
+                    }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #three-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .interactive-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 24px;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin: 10px;
+        }
+
+        .interactive-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .interactive-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .interactive-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floaating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        #particles-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .particles-circle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            background: rgba(255, 255, 255, 0.2);
+            animation: float 6s infinite;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/api/placeholder/1200/400') center/cover;
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            position: relative;
+            font-size: 2rem; /* Increase font size for subtitle text */
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .profile-img {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 4px solid white;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.1);
+        }
+
+        .section {
+            padding: 60px 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .interactive-text {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+
+        .interactive-text:hover {
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .floating-element {
+            position: absolute;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .moving-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, 
+                rgba(79, 70, 229, 0.1) 0%, 
+                rgba(124, 58, 237, 0.1) 50%, 
+                rgba(99, 102, 241, 0.1) 100%);
+            animation: gradientMove 15s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .animated-border {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .animated-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-color));
+            animation: borderSlide 3s linear infinite;
+        }
+
+        @keyframes borderSlide {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .pulse {
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .wave-text {
+            display: inline-block;
+        }
+
+        .wave-text span {
+            display: inline-block;
+            animation: wave 1s ease infinite;
+            animation-delay: calc(0.1s * var(--i));
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section:nth-child(even) {
+            background-color: var(--light-bg);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2em;
+            color: var(--primary-color);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-card h3 {
+            white-space: normal;
+        }
+        .wave-text-space {
+            display: inline-block;
+            width: 0.25em;
+        }
+
+        .skill-progress {
+            margin-top: 10px;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress-bar {
+            height: 100%;
+            background: var(--primary-color);
+            width: 0;
+            transition: width 1s ease;
+        }
+
+        .experience-item {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .experience-item:hover {
+            transform: translateX(10px);
+        }
+        .experience-item h3 {
+            white-space: normal;
+            word-break: break-word;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: scale(1.05);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 24px;
+            font-size: 2.5rem; /* Increase icon size */
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.2);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px;
+            }
+            
+            .section {
+                padding: 40px 20px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+            z-index: 1000;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="loading-bar"></div>
+
+    <header class="hero">
+        <div id="three-container"></div>
+        <div id="particles-js"></div>
+        <div class="hero-content">
+            <img src="assets\img\profile.jpg" alt="Your Profile" class="profile-img">
+            <h1>Abdullah Erzin</h1>
+            <p id="typed-text"></p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/abdullah-erzin/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/Erzn3522" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://abdullaherzin.medium.com/" aria-label="Medium" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-medium"></i>
+                </a>
+                <a href="https://bento.me/abdullah-erzin" aria-label="Bento Profile" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-globe"></i>
+                </a>
             </div>
-        </nav>
-        <!-- Page Content-->
-        <div class="container-fluid p-0">
-            <!-- About-->
-            <section class="resume-section" id="about">
-                <div class="resume-section-content">
-                    <h1 class="mb-0">
-                        Abdullah
-                        <span class="text-primary">Erzin</span>
-                    </h1>
-                    <div class="subheading mb-5">
-                        Maltepe / Istanbul· +90(531) 594-5528 ·
-                        <a href="mailto:abdullaherzin80@gmail.com">abdullaherzin80@gmail.com</a>
-                    </div>
-                    <p class="lead mb-5">I am a dedicated Computer Vision Engineer with a passion for pushing the boundaries of technology, I have gained valuable experience in developing computer vision and AI solutions throughout my career. My career goal is to continue exploring and advancing the field of computer vision and AI. I strive to contribute my expertise and leadership skills to develop impactful solutions that address real-world challenges. I aim to collaborate with talented teams and utilize my programming </p>
-                    <div class="social-icons">
-                        <a class="social-icon"  target="_blank" href="https://www.linkedin.com/in/abdullah-erzin/"><i class="fab fa-linkedin-in"></i></a>
-                        <a class="social-icon"  target="_blank" href="https://github.com/Erzn3522"><i class="fab fa-github"></i></a>
-                        <a class="social-icon"  target="_blank" href="https://medium.com/@abdullaherzin"><i class="fab fa-medium"></i></a>
-                        <!-- <a class="social-icon" href="#!"><i class="fab fa-"></i></a> -->
-                    </div>
+            
+        </div>
+    </header>
+
+    <section class="section" id="about">
+        <h2 class="section-title">About Me</h2>
+        <p>I'm Abdullah Erzin,</p> A passionate engineer with a strong background in computer vision, AI, and robotics. With a degree in Mechatronics Engineering from Marmara University, I've developed and implemented innovative solutions across various fields, from autonomous navigation systems to advanced AI models. My career journey spans roles as a Software Engineer, AI Developer, and Autonomous Vehicle Engineer, showcasing my ability to tackle complex challenges and deliver impactful results. Highlights of my work include developing a cleaning robot's autonomous movement system, achieving high-accuracy face recognition algorithms, AI supported surveillance systems. I excel in using cutting-edge technologies like TensorFlow, PyTorch, OpenCV, and NumPy, and I'm skilled in programming languages such as Python and C++. Beyond engineering, I enjoy exploring the open roads on my motorcycle and diving into the underwater world as a certified scuba diver. My journey reflects a relentless drive to innovate and push the boundaries of technology while creating practical, efficient solutions.
+    </section>
+
+    <section class="section" id="skills">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-grid" style="color: black;">
+            <div class="skill-card" data-skill="100" style="color: black;">
+                <h3>Technical Skills</h3>
+                <p>Python, C++, C#, JavaScript, HTML, CSS, SQL, Halcon, TensorFlow, PyTorch, OpenCV, NumPy</p>
+                <div class="skill-progress">
+                    <div class="skill-progress-bar"></div>
                 </div>
-            </section>
-            <hr class="m-0" />
-            <!-- Experience-->
-            <section class="resume-section" id="experience">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">Experience</h2>
-
-                    <div class="d-flex flex-column flex-md-row justify-content-between">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">Computer Vision Engineer</h3>
-                            <div class="subheading mb-3">Dogru Holding A.S.</div>
-                            <p>I am joined a small group to develop Computer Vision and AI solutions in Dogru Holding. I am leading a couple projects inception-to-completion right now ZGN which is my old job is a also Dogru Holding’s company, I changed the company to focus on the Computer Vision projects</p>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">May 2023 - Present</span></div>
-                    </div>
-
-                    <div class="d-flex flex-column flex-md-row justify-content-between">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">Autonomous Vehicle Development Engineer</h3>
-                            <div class="subheading mb-3">ZGN Autonomous & Robotics</div>
-                            <p>I worked on autonomous driving algorithms development projects. After a while, I moved to another company of Dogru Holding, to which ZGN is affiliated, to focus on artificial intelligence projects</p>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">December 2022 - May 2023</span></div>
-                    </div>
-
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">Machine Vision Engineer</h3>
-                            <div class="subheading mb-3">Genysys Automation and Machine vision</div>
-                            <p>Developing Machine Vision and their Windows applications i'm using Halcon, C# and SQL for this. Gensys is a company which is could creating tailor made solutions thus i had an experience  some other technologies as creating a Web Page, PLC, OpenGL, Deep Learning </p>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">December 2021 - December 2022</span></div>
-                    </div>
-                    
-                    <div class="d-flex flex-column flex-md-row justify-content-between">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">Machine Vision Engineer Intern</h3>
-                            <div class="subheading mb-3">Mavis Machine Vision</div>
-                            <p>I learned the fundamental of Machine Vision, industrial cameras and OOP with C#. I got to know camera and lens technologies more closely. I learned how to work as a team and the importance of
-                                code readability in business life.</p>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">July 2020 - March 2021</span></div>
-                    </div>
-
+            </div>
+            <div class="skill-card" data-skill="100" style="color: black;">
+                <h3>Soft Skills</h3>
+                <p>Leadership, Communication, Problem Solving, Team Collaboration, Ability to Fight with Jetson Devices and survive</p>
+                <div class="skill-progress">
+                    <div class="skill-progress-bar"></div>
                 </div>
-            </section>
-            <hr class="m-0" />
-            <!-- Education-->
-            <section class="resume-section" id="education">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">Education</h2>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">                            
-                            <h3 class="mb-0">Marmara University</h3>                           
-                            <div class="subheading mb-3">Bachelor of Science</div>
-                            <div>Mechatronic Engineering</div>
-                            <!-- <p>GPA: 3.23</p> -->
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">
-                            September 2016 - March 2021</span></div>
-                    </div>
-                    
+            </div>
+            <div class="skill-card" data-skill="100" style="color: black;">
+                <h3>Tools</h3>
+                <p>Git, SQL</p>
+                <div class="skill-progress">
+                    <div class="skill-progress-bar"></div>
                 </div>
-            </section>
-            <hr class="m-0" />
-            <!-- Skills-->
-            <section class="resume-section" id="skills">
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="section" id="experience">
+        <h2 class="section-title">Experience</h2>
+        <div class="experience-item" style="color: black;">
+            <h3>Software Engineer</h3>
+            <p>Robsys Robotic Systems | Mar 2024 - Present</p>
+            <ul>
+                <li>Developed an autonomous moving system from scratch for a cleaning robot, including mapping and navigation with 
+                    arrays, and managed robot communication independently, ensuring no external dependencies.</li>
+                <li>Integrated real-time data and camera streaming into a mobile app for remote monitoring and control.</li>
+                <li>Designed a custom communication protocol via UART for seamless data exchange with the robot's motherboard.</li>
+                <li>Leveraged a Jetson device with AI models for real-time data acquisition and precise control through direct 
+                    communication with the robot's motherboard.
+                    </li>
+                <li>Collaborated with cross-functional teams to develop a robust communication system that streams live data and 
+                    camera feeds to a mobile app, enhancing user experience by providing real-time monitoring and remote control 
+                    capabilities</li>
+            </ul>
+        </div>
+        <div class="experience-item" style="color: black;">
+            <h3>AI Developer</h3>
+            <p>Bomensoft (Remote) | Jan 2024 - Feb 2024</p>
+            <ul>
+                <li>Collaborated with team members to optimize AI models and add new features to backend significantly enhancing 
+                    efficiency and performance</li>
+                <li>Revamped the website's log structure using JavaScript, HTML, and Python, improving data connectivity and analysis.</li>
+                <li>Expanded website functionality by developing new pages and implementing additional features.</li>
+            </ul>
+        </div>
+        <div class="experience-item" style="color: black;">
+            <h3>Computer&#32;Vision&#32;Engineer</h3>
+            <p>DGR Project | May 2023 - Dec 2023</p>
+            <ul>
+                <li>Developed a high-security face recognition algorithm achieving 98% accuracy and optimizing memory usage to 4kb for per person using image pre-processing.</li>
+                <li>Led the development of a live streaming project, reducing processing time to under 30ms.</li>
+                <li>Aligned package dependencies and optimized AI models for Jetson platforms.</li>
+                <li>Spearheaded the decelopment of an innovative live streaming project, aiming to reduce processing time to under 
+                    30ms, managing both software and computer vision model development</li>
+            </ul>
+        </div>
+        <div class="experience-item" style="color: black;">
+            <h3 style="white-space: normal; word-break: break-word;">Autonomous Vehicle Development Engineer</h3>
+            <p>ZGN Autonomous & Robotics | Dec 2022 - May 2023</p>
+            <ul>
+                <li>Optimized pathfinding algorithms, reducing processing time by 30% and increasing efficiency.</li>
+                <li>Designed and implemented algorithms enabling robots to map areas using construction blueprints.</li>
+                <li>Contributed to autonomous driving algorithm development projects</li>
+            </ul>
+        </div>
+        <div class="experience-item" style="color: black;">
+            <h3>Machine Vision Engineer</h3>
+            <p>Gensys Automation & Machine Vision | Dec 2021 - Dec 2022</p>
+            <ul>
+                <li>Developed desktop applications using C#, Halcon, and MSSQL for seamless machine vision program functionality.</li>
+                <li>Conducted on-site project setups and delivered two TUBITAK-funded projects.</li>
+                <li>Developed NDT (Non-Destructive Testing) program via thermal camera and halogen lamps to detect cracks inside of the materials </li>
+            </ul>
+        </div>
+    </section>
+    
+
+    <section class="section" id="contact">
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-grid">
+            <a href="mailto:abdullaherzin80+resume@gmail.com?subject=Job%20Opportunity&body=Dear%20Abdullah%2C%0A%0AWe%20are%20interested%20in%20discussing%20a%20job%20opportunity%20with%20you.%20Please%20let%20us%20know%20a%20suitable%20time%20for%20a%20conversation.%0A%0ARegards%2C%0A[Your%20Name]" style="color: black; text-decoration: none; display: block;">
+                <div class="contact-item" data-info="email" style="color: black; cursor: pointer;">
+                    <i class="fas fa-envelope"></i>
+                    <p>abdullaherzin80+resume@gmail.com</p>
+                </div>
+            </a>            
+            <div class="contact-item" data-info="location" style="color: black;">
+                <i class="fas fa-location-dot"></i>
+                <p>Kadıköy, İstanbul</p>
+            </div>
+            <a href="assets\documents\resume.pdf" target="_blank" style="color: black; text-decoration: none; display: block;">
+                <div class="contact-item" data-info="resume" style="color: black; cursor: pointer;">
+                    <i class="fas fa-file-pdf"></i>
+                    <p>View Resume</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <div class="modal">
+        <div class="modal-content" style="color: black;">
+            <span class="modal-close">&times;</span>
+            <h2>Details</h2>
+            <p id="modal-text"></p>
+        </div>
+    </div>
+
+    <div class="moving-background"></div>
+
+    <script>
+        // Create animated text elements
+        function createWaveText(element) {
+            const text = element.textContent;
+            element.textContent = '';
+            [...text].forEach((char, i) => {
+                const span = document.createElement('span');
+                if (char === ' ') {
+                    span.className = 'wave-text-space';
+                } else {
+                    span.textContent = char;
+                    span.style.setProperty('--i', i);
+                    span.className = 'wave-text';
+                }
+                element.appendChild(span);
+            });
+        }
+
+        // Add floating elements that follow cursor with delay
+        function createFloatingElements() {
+            const container = document.body;
+            const elements = [];
+            const colors = ['#4f46e5', '#7c3aed', '#6366f1'];
+            
+            for (let i = 0; i < 50; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.style.width = '5px';
+                element.style.height = '5px';
+                element.style.backgroundColor = colors[i % colors.length];
+                element.style.borderRadius = '50%';
+                element.style.opacity = '0.6';
+                container.appendChild(element);
+                elements.push({
+                    element,
+                    x: 0,
+                    y: 0,
+                    delay: i * 0.1
+                });
+            }
+
+            document.addEventListener('mousemove', (e) => {
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+
+                elements.forEach((obj) => {
+                    setTimeout(() => {
+                        obj.x += (mouseX - obj.x) * 0.1;
+                        obj.y += (mouseY - obj.y) * 0.1;
+                        obj.element.style.transform = `translate(${obj.x}px, ${obj.y}px)`;
+                    }, obj.delay);
+                });
+            });
+        }
+
+        // Add interactive text effects
+        function addInteractiveText() {
+            const paragraphs = document.querySelectorAll('p');
+            paragraphs.forEach(p => {
+                const words = p.textContent.split(' ');
+                p.innerHTML = words.map(word => 
+                    `<span class="interactive-text">${word}</span>`
+                ).join(' ');
+            });
+        }
+
+        // Initialize all animations
+        document.addEventListener('DOMContentLoaded', () => {
+            createFloatingElements();
+            addInteractiveText();
+            
+            // Create wave effect for headings
+            document.querySelectorAll('h1, h2, h3').forEach(heading => {
+                heading.classList.add('animated-border', 'pulse');
+                createWaveText(heading);
+            });
+        });
+
+        // Particles.js configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#ffffff'
+                },
+                shape: {
+                    type: 'circle'
+                },
+                opacity: {
+                    value: 0.5,
+                    random: true,
+                    animation: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    animation: {
+                        enable: true,
+                        speed: 2,
+                        size_min: 0.1,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#ffffff',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: {
+                        enable: true,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'repulse'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    repulse: {
+                        distance: 100,
+                        duration: 0.4
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Create floating circles that follow mouse movement
+        const hero = document.querySelector('.hero');
+        const createCircle = (e) => {
+            const circle = document.createElement('div');
+            circle.className = 'particles-circle';
+            circle.style.left = e.clientX + 'px';
+            circle.style.top = e.clientY + 'px';
+            circle.style.width = Math.random() * 20 + 10 + 'px';
+            circle.style.height = circle.style.width;
+            
+            hero.appendChild(circle);
+            
+            setTimeout(() => {
+                circle.remove();
+            }, 2000);
+        };
+
+        let throttled = false;
+        hero.addEventListener('mousemove', (e) => {
+            if (!throttled) {
+                createCircle(e);
+                throttled = true;
+                setTimeout(() => {
+                    throttled = false;
+                }, 50);
+            }
+        });
+
+        // Initialize Three.js scene
+        let scene, camera, renderer, geometry, material, meshes = [];
+        
+        function initThreeJS() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('three-container').appendChild(renderer.domElement);
+
+            // Create multiple geometric shapes
+            const geometries = [
+                new THREE.TorusGeometry(1, 0.4, 16, 100),
+                new THREE.OctahedronGeometry(1),
+                new THREE.TetrahedronGeometry(1),
+                new THREE.IcosahedronGeometry(1)
+            ];
+
+            const colors = [0x4f46e5, 0x7c3aed, 0x6366f1, 0x8b5cf6];
+
+            // Create multiple meshes with different geometries and positions
+            for (let i = 0; i < 20; i++) {
+                geometry = geometries[i % geometries.length];
+                material = new THREE.MeshPhongMaterial({
+                    color: colors[i % colors.length],
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.5
+                });
+
+                const mesh = new THREE.Mesh(geometry, material);
+                // Randomly position the object on the left or right side
+                const isLeft = Math.random() < 0.5; // 50% chance of being on the left side
+                const randomOffset = (Math.random() - 0.8) * 10; // Random offset between -1 and 1
+
+                mesh.position.x = isLeft ? -10 + randomOffset : 10 + randomOffset;
+                mesh.position.y = (Math.random() - 0.5) * 10;
+                mesh.position.z = (Math.random() - 0.5) * 5 - 5;
+                mesh.rotation.x = Math.random() * Math.PI;
+                mesh.rotation.y = Math.random() * Math.PI;
                 
-                <div class="resume-section-content">
-                    <h2 class="mb-5">Skills</h2>
-                    
-                    <!-- <a href="assets/img/Abdullah_Erzin_CV.pdf" download></a> -->
-                    <div class="subheading mb-3">Programming Languages & Tools</div>
-                    <ul class="list-inline dev-icons">
-                        <li class="list-inline-item"><i class="fab fa-python"></i></li>
-                        <li class="list-inline-item"><i class="devicon-opencv-plain-wordmark"></i></li>
-                        <li class="list-inline-item"><i class="devicon-tensorflow-original-wordmark"></i></li>
-                        <li class="list-inline-item"><i class="devicon-csharp-line"></i></li>
-                        <!-- <li class="list-inline-item"><i class="devicon-visualstudio-plain"></i></li> -->
-                        <!-- <li class="list-inline-item"><i class="devicon-vscode-plain"></i></li> -->
-                        <li class="list-inline-item"><i class="fab fa-html5"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-github"></i></li>
-                        <li class="list-inline-item"><i class="devicon-gitlab-plain-wordmark"></i></li>
-                        <li class="list-inline-item"><i class="devicon-git-plain"></i></li>
-                        <!-- <li class="list-inline-item"><i class="devicon-docker-plain"></i></li> -->
-                        <li class="list-inline-item"><i class="fab fa-medium"></i></li>
-                        <!-- <li class="list-inline-item"><i class="devicon-sdl-plain"></i></li>  -->
-                          
-                        
-                                                
-                       
-                    </ul>
-                    <div class="subheading mb-3">Workflow</div>
-                    <ul class="fa-ul mb-0">
-                        <li>
-                            <span class="fa-li"><i class="fas fa-check"></i></span>
-                            I like to document my works thus I write lots of "Read.Me" file
-                        </li>
-                        
-                        <li>
-                            <span class="fa-li"><i class="fas fa-check"></i></span>
-                            Design according to the SOLID principles
-                        </li>
-                    </ul>
-                </div>
-            </section>
-            <hr class="m-0" />
-            <!-- Interests-->
-            <section class="resume-section" id="interests">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">Interests</h2>
-                    <p>Apart from being a software developer, I enjoy most of my time being outdoors with my friends or going gym. During the warmer months, I enjoy biking,  and scuba diving.
-                    </p>
-                    <p class="mb-0">When indoors, I prefer cooking or playing video games, I am an aspiring chef and bodybuilder, and I spend a large amount of my free time exploring the latest technology advancements in the development world.</p>
-                </div>
-            </section>
-             <!-- Resume-->
-            <section class="resume-section" id="resume">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">Resume</h2>
-                    <a href="assets/img/Abdullah_Erzin_CV.pdf" target="_blank" style= font-size:22px download> Click on me to show my resume.</a>
-                    
-                </div>
-            </section>
-            <hr class="m-0" />
-            <!-- Awards-->
-            <!-- <section class="resume-section" id="awards">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">Awards & Certifications</h2>
-                    <ul class="fa-ul mb-0">
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            Google Analytics Certified Developer
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            Mobile Web Specialist - Google Certification
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            1
-                            <sup>st</sup>
-                            Place - University of Colorado Boulder - Emerging Tech Competition 2009
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            1
-                            <sup>st</sup>
-                            Place - University of Colorado Boulder - Adobe Creative Jam 2008 (UI Design Category)
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            2
-                            <sup>nd</sup>
-                            Place - University of Colorado Boulder - Emerging Tech Competition 2008
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            1
-                            <sup>st</sup>
-                            Place - James Buchanan High School - Hackathon 2006
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            3
-                            <sup>rd</sup>
-                            Place - James Buchanan High School - Hackathon 2005
-                        </li>
-                    </ul>
-                </div>
-            </section>
-        </div> -->
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
+                meshes.push({
+                    mesh: mesh,
+                    rotationSpeed: {
+                        x: (Math.random() - 0.5) * 0.02,
+                        y: (Math.random() - 0.5) * 0.02,
+                        z: (Math.random() - 0.5) * 0.02
+                    }
+                });
+                
+                scene.add(mesh);
+            }
+
+            // Add lights
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+
+            const pointLight = new THREE.PointLight(0xffffff, 1);
+            pointLight.position.set(5, 5, 5);
+            scene.add(pointLight);
+
+            camera.position.z = 15;
+
+            // Handle window resize
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate all meshes
+            meshes.forEach(item => {
+                item.mesh.rotation.x += item.rotationSpeed.x;
+                item.mesh.rotation.y += item.rotationSpeed.y;
+                item.mesh.rotation.z += item.rotationSpeed.z;
+            });
+
+            // Add subtle floating movement
+            meshes.forEach(item => {
+                item.mesh.position.y += Math.sin(Date.now() * 0.001) * 0.01;
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        // Initialize Three.js scene
+        initThreeJS();
+        animate();
+
+        // Mouse movement effect on 3D objects
+        document.addEventListener('mousemove', (event) => {
+            const mouseX = (event.clientX / window.innerWidth) * 5- 1;
+            const mouseY = -(event.clientY / window.innerHeight) * 10 + 1;
+
+            meshes.forEach(item => {
+                item.mesh.rotation.x += mouseY * 0.01;
+                item.mesh.rotation.y += mouseX * 0.01;
+            });
+        });
+
+        // Add interactive buttons
+        document.querySelectorAll('.skill-card, .experience-item, .contact-item').forEach(item => {
+            item.classList.add('interactive-button');
+        });
+
+        // Add floating shapes to all sections
+        document.querySelectorAll('.section').forEach(section => {
+            const shapes = document.createElement('div');
+            shapes.className = 'floating-shapes';
+            section.appendChild(shapes);
+
+            // Add animated shapes
+            for (let i = 0; i < 5; i++) {
+                const shape = document.createElement('div');
+                shape.style.position = 'absolute';
+                shape.style.background = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.1)`;
+                shape.style.width = Math.random() * 100 + 50 + 'px';
+                shape.style.height = shape.style.width;
+                shape.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                shape.style.left = Math.random() * 100 + '%';
+                shape.style.top = Math.random() * 100 + '%';
+                shape.style.animation = `float ${Math.random() * 10 + 5}s infinite`;
+                shapes.appendChild(shape);
+            }
+        });
+
+        // Add keyframe animation for floating circles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                100% {
+                    transform: translate(0, 0) scale(1);
+                    opacity: 0.8;
+                }
+                100% {
+                    transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) scale(0.5);
+                    opacity: 0.8;
+                }
+                100% {
+                    transform: translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px) scale(0);
+                    opacity: 0.8;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Typing animation
+        new Typed('#typed-text', {
+            strings: [
+                        'Computer Vision',
+                        'Software Engineer',
+                        'Tech Enthusiast... and occasional bug creator!',                        
+                        'I’m not lazy, I’m just buffering.',
+                    ],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true
+        });
+
+        // Scroll animations
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => observer.observe(section));
+
+        // Skill progress bars
+        const skillCards = document.querySelectorAll('.skill-card');
+        skillCards.forEach(card => {
+            const progressBar = card.querySelector('.skill-progress-bar');
+            const skillLevel = card.dataset.skill;
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        progressBar.style.width = `${skillLevel}%`;
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            observer.observe(card);
+        });
+
+        // Modal functionality
+        const modal = document.querySelector('.modal');
+        const modalClose = document.querySelector('.modal-close');
+        const modalText = document.getElementById('modal-text');
+
+        function showModal(content) {
+            modalText.textContent = content;
+            modal.style.display = 'flex';
+        }
+
+        modalClose.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Experience item click handlers
+        document.querySelectorAll('.experience-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const title = item.querySelector('h3').textContent;
+                const details = item.querySelector('p').textContent;
+                showModal(`${title}\n${details}`);
+            });
+        });
+
+        // Contact item click handlers
+        document.querySelectorAll('.contact-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const info = item.querySelector('p').textContent;
+                // navigator.clipboard.writeText(info).then(() => {
+                //     alert('Copied to clipboard!');
+                // });
+            });
+        });
+
+        // Loading bar
+        const loadingBar = document.querySelector('.loading-bar');
+        window.addEventListener('scroll', () => {
+            const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            loadingBar.style.width = `${scrolled}%`;
+        });
+    </script>
+</body>
 </html>

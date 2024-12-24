@@ -662,7 +662,7 @@
             addInteractiveText();
             
             // Create wave effect for headings
-            document.querySelectorAll('h1, h2, h3').forEach(heading => {
+            document.querySelectorAll('h1, h2').forEach(heading => {
                 heading.classList.add('animated-border', 'pulse');
                 createWaveText(heading);
             });
@@ -1007,9 +1007,6 @@
         document.querySelectorAll('.contact-item').forEach(item => {
             item.addEventListener('click', () => {
                 const info = item.querySelector('p').textContent;
-                // navigator.clipboard.writeText(info).then(() => {
-                //     alert('Copied to clipboard!');
-                // });
             });
         });
 
